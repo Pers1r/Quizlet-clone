@@ -226,8 +226,10 @@ body {
   box-shadow: 0 6px 12px rgba(22,29,37,0.10);
 }
 
-/*Info page*/
 
+
+
+/*Info page*/
 .info-page {
     width: 100%;
     background: #7dafe8;
@@ -338,4 +340,133 @@ body {
     transform: translateY(-3px);
     box-shadow: 0 8px 18px rgba(22,29,37,0.12);
     outline: none;
+}
+
+
+
+/*Flashcard preview*/
+.flashcards-preview{
+    background: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding-bottom: 100px;
+    padding-top: 60px;
+}
+
+.flashcards-preview-header {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+
+    /* line-height: 38px; */
+    line-height: 127%;
+    text-align: center;
+    color: #000;
+    margin-bottom: 48px;
+}
+
+.flashcards-preview-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+.flashcards-row {
+    display: flex;
+    flex-direction: row;
+    gap: 44px;
+}
+
+.flashcard {
+    padding: 18px;
+    border: 3px solid #d5d7da;
+    border-radius: 10px;
+    width: 303px;
+    height: 150px;
+    background: #fff;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    box-sizing: border-box;
+
+    padding-left: 22px;
+    padding-right: 22px;
+
+    transition: transform 240ms cubic-bezier(.2,.8,.2,1),
+                box-shadow 240ms cubic-bezier(.2,.8,.2,1);
+    will-change: transform;
+}
+
+.flashcard-top {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+
+    align-items: flex-start;
+}
+
+.flashcard-title {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+
+    /* line-height: 20px; */
+    line-height: 143%;
+    text-align: left;
+    color: #000;
+
+    margin: 0;
+    padding: 0;
+}
+
+.flashcard-badge {
+    display: inline-block;
+    border-radius: 20px;
+    padding: 6px 12px;
+    background: #d9d9d9;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+
+    /* line-height: 16px; */
+    line-height: 160%;
+    text-align: center;
+    color: #000;
+
+    align-self: flex-start;
+}
+
+.flashcard-owner {
+    margin-bottom: 4px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-size: 10px;
+
+    /* line-height: 16px; */
+    line-height: 160%;
+    text-align: center;
+    color: #717680;
+}
+
+/*Flashcard animation*/
+
+/* On hover / keyboard focus: lift up ~10px and slightly scale */
+.flashcard:hover,
+.flashcard:focus-visible {
+    transform: translateY(-10px) scale(1.02); /* visually moves up ~10px */
+    box-shadow: 0 20px 40px rgba(22,29,37,0.12);
+    z-index: 3; /* ensure hovered card sits above neighbors */
+    outline: none;
+}
+
+/* Small "pressed" feedback when clicking */
+.flashcard:active {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 12px 28px rgba(22,29,37,0.10);
 }
