@@ -2,6 +2,11 @@ body {
     margin: 0;
 }
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
 
 /*nav bar */
 .nav-bar {
@@ -219,4 +224,118 @@ body {
 .my-profile-btn:active {
   transform: translateY(-2px) scale(1.01);
   box-shadow: 0 6px 12px rgba(22,29,37,0.10);
+}
+
+/*Info page*/
+
+.info-page {
+    width: 100%;
+    background: #7dafe8;
+    padding: 100px 24px 60px;  /* top / horizontal / bottom spacing */
+    display: block;            /* container only — inner container centers content */
+}
+
+.info-page-container {
+    max-width: 1274px;        /* screenshot width */
+    margin: 0 auto;           /* center on the page */
+    display: flex;
+    flex-direction: column;
+    gap: 40px;                /* space between cards */
+    align-items: stretch;
+}
+
+.info-page-box {
+    border-radius: 10px;
+    background: #fffbfb;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    box-shadow: 0 8px 24px rgba(12, 25, 40, 0.07);
+    overflow: hidden;
+}
+
+/* Mirror every even card so second card has image on right */
+.info-page-container > .info-page-box:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.info-page-box-descr {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+
+    /* line-height: 28px; */
+    line-height: 156%;
+    text-align: center;
+    color: #000;
+}
+
+.info-page-box-label {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+
+    /* line-height: 38px; */
+    line-height: 127%;
+    color: #000;
+}
+
+.info-page-text-wrapper {
+    flex: 1 1 560px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.info-page-img{
+    display: block;
+    border-radius: 20px;
+    width: 529px;
+    height: 328px;
+
+    object-fit: cover;
+
+    box-shadow: 0 6px 18px rgba(12, 25, 40, 0.06);
+    flex: 0 0 529px;
+}
+
+.img-learn {
+    margin-left: 60px;
+}
+
+.img-quiz {
+    margin-right: 60px;
+}
+
+.start-button {
+    margin-top: 60px;
+    border-radius: 20px;
+    width: 150px;
+    height: 60px;
+    background: #2e90fa;
+
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+
+    /* line-height: 30px; */
+    line-height: 150%;
+    text-align: center;
+    color: #fff;
+
+    border: none;
+    cursor: pointer;
+    padding: 0 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.start-button:hover,
+.start-button:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(22,29,37,0.12);
+    outline: none;
 }
