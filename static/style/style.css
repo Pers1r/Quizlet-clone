@@ -175,3 +175,48 @@ body {
     line-height: 127%;
     color: #181d27;
 }
+
+/*button animations*/
+
+/* Smooth "lift" for cards */
+.card {
+    transition: transform 240ms cubic-bezier(.2,.8,.2,1),
+                box-shadow 240ms cubic-bezier(.2,.8,.2,1);
+    will-change: transform;
+}
+
+/* On hover / keyboard focus: lift up ~10px and slightly scale */
+.card:hover,
+.card:focus-visible {
+    transform: translateY(-10px) scale(1.02); /* visually moves up ~10px */
+    box-shadow: 0 20px 40px rgba(22,29,37,0.12);
+    z-index: 3; /* ensure hovered card sits above neighbors */
+    outline: none;
+}
+
+/* Small "pressed" feedback when clicking */
+.card:active {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 12px 28px rgba(22,29,37,0.10);
+}
+
+/* Slight lift for the profile button (more subtle) */
+.my-profile-btn {
+  transition: transform 200ms cubic-bezier(.2,.8,.2,1),
+              box-shadow 200ms cubic-bezier(.2,.8,.2,1);
+  will-change: transform;
+  /* ensure it can lift without pushing other items */
+  position: relative;
+}
+
+.my-profile-btn:hover,
+.my-profile-btn:focus-visible {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 18px rgba(22,29,37,0.12);
+  outline: none;
+}
+
+.my-profile-btn:active {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 6px 12px rgba(22,29,37,0.10);
+}
