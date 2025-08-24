@@ -18,53 +18,58 @@
             <button class="my-profile-btn btn">My profile</button>
         </div>
     </header>
-    <section class="main" >
-        <div class="title-bar">
-            <h1 class="main-title">Create a module with cards</h1>
-            <div class="main-title-actions">
-                <button class="btn btn-outline">Create</button>
-                <button class="btn btn-primary">Create and practice</button>
+    <section>
+        <form class="main" method="POST" action="/create_flashcard_module">
+            <div class="title-bar">
+                <h1 class="main-title">Create a module with cards</h1>
+                <div class="main-title-actions">
+                    <button type="submit" class="btn btn-outline" name="action" value="create">Create</button>
+                    <button type="submit" class="btn btn-primary" name="action" value="create_practice">Create and practice</button>
+                </div>
             </div>
-        </div>
-        <div class="input-main-data">
-            <input class="name-input" type="text" placeholder="Name...">
-            <textarea class="descr-input" type="text" placeholder="Description..."></textarea>
-        </div>
-        <div class="cards">
-            <div class="card">
-                <p class="card-id">1</p>
-                <div class="card-line"></div>
-                <div class="card-inputs">
-                    <div class="input-field">
-                        <input class="card-create-input" id="term" type="text">
-                        <label class="card-input-label" for="term">TERM</label>
+
+            <div class="input-main-data">
+                <input class="name-input" type="text" name="module_name" placeholder="Name...">
+                <textarea class="descr-input" type="text" name="module_descr" placeholder="Description..."></textarea>
+            </div>
+            <div class="cards">
+                <div class="card">
+                    <p class="card-id">1</p>
+                    <div class="card-line"></div>
+                    <div class="card-inputs">
+                        <div class="input-field">
+                            <input class="card-create-input" name="term_1" id="term1" type="text">
+                            <label class="card-input-label" for="term1">TERM</label>
+                        </div>
+                        <div class="input-field">
+                            <input class="card-create-input" name="definition_1" id="dfn1" type="text">
+                            <label class="card-input-label" for="dfn1">DEFINITION</label>
+                        </div>
                     </div>
-                    <div class="input-field">
-                        <input class="card-create-input" id="dfn" type="text">
-                        <label class="card-input-label" for="dfn">DEFINITION</label>
+                </div>
+                <div class="card">
+                    <p class="card-id">2</p>
+                    <div class="card-line"></div>
+                    <div class="card-inputs">
+                        <div class="input-field">
+                            <input class="card-create-input" name="term_2" id="term2" type="text">
+                            <label class="card-input-label" for="term2">TERM</label>
+                        </div>
+                        <div class="input-field">
+                            <input class="card-create-input" name="definition_2" id="dfn2" type="text">
+                            <label class="card-input-label" for="dfn2">DEFINITION</label>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <p class="card-id">2</p>
-                <div class="card-line"></div>
-                <div class="card-inputs">
-                    <div class="input-field">
-                        <input class="card-create-input" id="term" type="text">
-                        <label class="card-input-label" for="term">TERM</label>
-                    </div>
-                    <div class="input-field">
-                        <input class="card-create-input" id="dfn" type="text">
-                        <label class="card-input-label" for="dfn">DEFINITION</label>
-                    </div>
-                </div>
+
+            <button type="button" class="add-btn btn" id="add-card-btn">Add a card</button>
+            <script src="static/code/code.js"></script>
+            <div class="main-title-actions-bottom">
+                <button type="submit" class="btn btn-primary" name="action" value="create_practice">Create and practice</button>
+                <button type="submit" class="btn btn-outline" name="action" value="create">Create</button>
             </div>
-        </div>
-        <button class="add-btn btn">Add a card</button>
-        <div class="main-title-actions-bottom">
-            <button class="btn btn-primary">Create and practice</button>
-            <button class="btn btn-outline">Create</button>
-        </div>
+        </form>
     </section>
 
 </body>
