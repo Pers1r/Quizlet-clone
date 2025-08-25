@@ -64,52 +64,25 @@
     <section class="flashcards-preview">
         <h2 class="flashcards-preview-header">Popular flashcards sets</h2>
         <div class="flashcards-preview-wrapper">
+            {# batch the list into rows of 3; fill empty slots with None so layout stays even #}
+        {% for row in flashcards|batch(3, fill_with=None) %}
             <div class="flashcards-row">
-                <button class="flashcard">
-                    <div class="flashcard-top">
-                        <div class="flashcard-title">Flashcard set title</div>
-                        <div class="flashcard-badge">192 cards</div>
-                    </div>
-                    <div class="flashcard-owner">Name of owner</div>
-                </button>
-                <button class="flashcard">
-                    <div class="flashcard-top">
-                        <div class="flashcard-title">Flashcard set title</div>
-                        <div class="flashcard-badge">192 cards</div>
-                    </div>
-                    <div class="flashcard-owner">Name of owner</div>
-                </button>
-                <button class="flashcard">
-                    <div class="flashcard-top">
-                        <div class="flashcard-title">Flashcard set title</div>
-                        <div class="flashcard-badge">192 cards</div>
-                    </div>
-                    <div class="flashcard-owner">Name of owner</div>
-                </button>
+                {% for f in row %}
+                    {% if f %}
+                        <a class="flashcard" href="{{ url_for('flashcard_module', flashcard_id=f.id) }}">
+                            <div class="flashcard-top">
+                                <div class="flashcard-title">{{ f.name }}</div>
+                                <div class="flashcard-badge">{{ f.cards|length }} cards</div>
+                            </div>
+                            <div class="flashcard-owner">{{ f.description }}</div>
+                        </a>
+                    {% else %}
+                        {# empty placeholder to keep spacing consistent #}
+                        <div class="flashcard" aria-hidden="true" style="visibility:hidden"></div>
+                    {% endif %}
+                {% endfor %}
             </div>
-            <div class="flashcards-row">
-                <button class="flashcard">
-                    <div class="flashcard-top">
-                        <div class="flashcard-title">Flashcard set title</div>
-                        <div class="flashcard-badge">192 cards</div>
-                    </div>
-                    <div class="flashcard-owner">Name of owner</div>
-                </button>
-                <button class="flashcard">
-                    <div class="flashcard-top">
-                        <div class="flashcard-title">Flashcard set title</div>
-                        <div class="flashcard-badge">192 cards</div>
-                    </div>
-                    <div class="flashcard-owner">Name of owner</div>
-                </button>
-                <button class="flashcard">
-                    <div class="flashcard-top">
-                        <div class="flashcard-title">Flashcard set title</div>
-                        <div class="flashcard-badge">192 cards</div>
-                    </div>
-                    <div class="flashcard-owner">Name of owner</div>
-                </button>
-            </div>
+        {% endfor %}
         </div>
     </section>
 </body>

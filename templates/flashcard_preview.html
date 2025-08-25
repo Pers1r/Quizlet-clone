@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Quizlet Clone</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style/flashcard_preview.css">
+</head>
+<body>
+
+    <div class="page=frame">
+        <header class="nav-bar">
+            <a class="logo" href="/">Quizelet</a>
+            <input type="search" class="search-bar" placeholder="Search..." >
+            <div class="nav-btns">
+                <a class="plus-sign" href="/create_flashcard_module">+</a>
+                <a class="create" href="/create_flashcard_module">Create</a>
+                <button class="my-profile-btn btn">My profile</button>
+            </div>
+        </header>
+
+        <main class="container">
+            <div class="title-row">
+                <h1 class="module-title">{{f.name}}</h1>
+
+
+                <div class="title-actions">
+                    <button class="round primary btn">
+                        <svg  viewBox="0 0 40 37" fill="yellow" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 0L24.4903 13.8197H39.0211L27.2654 22.3607L31.7557 36.1803L20 27.6393L8.2443 36.1803L12.7346 22.3607L0.97887 13.8197H15.5097L20 0Z" fill="#FFCC00" />
+                        </svg>
+                    </button>
+
+                    <button class="round outline btn">
+                        <img src="/static/img/share.png" alt="Share" class="icon-img">
+                    </button>
+                </div>
+            </div>
+
+            <div class="module-btns">
+                <button class="btn module-btn">
+                    <p>Flashcards</p>
+                </button>
+                <button class="btn module-btn">
+                    <p>Test</p>
+                </button>
+                <button class="btn module-btn">
+                    <p>Quiz</p>
+                </button>
+            </div>
+
+            <section class="card-storage" id="card-storage" data-cards='{{ f.cards|tojson }}'>
+                <!-- 3D card -->
+                <div class="card-3d-wrapper">
+                    <div class="card-3d" id="card" tabindex="0" role="button" aria-pressed="false" aria-label="Flashcard">
+                        <div class="card-inner">
+                            <div class="card-face card-front">
+                                <p class="term" id="term"></p>
+                            </div>
+                            <div class="card-face card-back">
+                                <p class="definition" id="definition"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button class="nav-btn muted btn" id="prev-btn" aria-label="previous">
+                        <img class="left-arrow arrow" src="/static/img/light-arrow.png" alt="left arrow">
+                    </button>
+
+                    <div class="progress-text" id="progress-text">1/1</div>
+
+                    <button class="nav-btn btn" id="next-btn" aria-label="next">
+                        <img class="right-arrow arrow" src="/static/img/dark-arrow.png" alt="right arrow">
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/static/code/card_flip.js"></script>
+</body>
+</html>

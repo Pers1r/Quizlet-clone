@@ -20,7 +20,8 @@ class Flashcards(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    flashcards = Flashcards.query.all()
+    return render_template('index.html', flashcards=flashcards)
 
 
 @app.route('/create_flashcard_module', methods=['GET', 'POST'])
@@ -49,6 +50,12 @@ def create_flashcard_module():
             print(f"term: {x['term']}, dfn: {x['dfn']}")
         return redirect(url_for('index'))
     return render_template('create_flashcards.html')
+
+
+@app.route('/flashcard_module/<int:flashcard_id>')
+def flashcard_module(flashcard_id):
+    flashcard = Flashcards.query.get(flashcard_id)
+    return render_template('flashcard_preview.html', f=flashcard)
 
 
 if __name__ == '__main__':
