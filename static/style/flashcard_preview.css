@@ -245,7 +245,6 @@ a {
 /*}*/
 
 .card-3d-wrapper {
-    perspective: 1200px;
     width: 1112px;
     max-width: 100%;
     margin: 0 auto 20px;

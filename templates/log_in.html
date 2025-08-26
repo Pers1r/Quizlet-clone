@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Log in</title>
+    <link rel="stylesheet" href="/static/style/log_in.css">
+</head>
+<body>
+    <div id="app" class="container" aria-live="polite">
+        <div class="hero no-overlay" role="presentation" aria-hidden="true">
+            <img class="hero-img" src="/static/img/log_in.png" alt="log in png">
+        </div>
+
+        <div class="panel" role="region" aria-label="Authentication panel">
+            <div class="tabs" role="tablist" aria-label="Login or register">
+                <div role="tab" class="tab" :aria-selected="isRegister" :class="{inactive: !isRegister}" @click="switchMode(true)">
+                    Register
+                </div>
+
+                <div role="tab" :aria-selected="!isRegister" class="tab" :class="{inactive: isRegister}" @click="switchMode(false)">
+                    Log in
+                </div>
+            </div>
+
+
+            <div class="form-wrapper">
+                <!--Log in form-->
+                <div class="form-box" :class="{hidden: isRegister}">
+                    <form @submit.prevent="submit">
+                        <div class="field">
+                            <label for="login-username">Username</label>
+                            <input id="login-username" type="text" v-model="form.username" autocomplete="username">
+                        </div>
+
+                        <div class="field">
+                            <label for="login-password">Password</label>
+                            <input id="login-password" type="password" v-model="form.password" autocomplete="password">
+                        </div>
+
+                        <div class="actions">
+                            <button type="submit" class="btn primary">Log in</button>
+                            <button type="button" class="btn ghost" @click="createNewAccount">Create new account</button>
+                        </div>
+
+                        <div v-if="errors.general" class="error" role="alert">{{ errors.general }}</div>
+                    </form>
+                </div>
+
+                <!--    REGISTER form        -->
+
+                <div class="form-box" :class="{hidden: !isRegister}" style="top: 0">
+                    <form @submit.prevent="submit">
+                        <div class="field">
+                            <label for="reg-username">Username</label>
+                            <input id="reg-username" type="text" v-model="form.username" autocomplete="username">
+                        </div>
+
+                        <div class="field">
+                            <label for="reg-password">Password</label>
+                            <input id="reg-password" type="password" v-model="form.password" autocomplete="password">
+                        </div>
+
+                        <div class="field">
+                            <label for="reg-password2">Repeat Password</label>
+                            <input id="reg-password2" type="password" v-model="form.password" autocomplete="password">
+                        </div>
+
+                        <div class="actions">
+                            <button :disabled="isCreating" type="submit" class="btn primary">{{ isCreating ? 'Creating...' : 'Create' }}</button>
+                            <button type="button" class="btn ghost" @click="switchMode(false)">Back to login</button>
+                        </div>
+
+                        <div v-if="errors.general" class="error" role="alert">{{ errors.general }}</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
+    <!-- app script (must be loaded after Vue) -->
+    <script src="/static/code/login.js"></script>
+</body>
+</html>
