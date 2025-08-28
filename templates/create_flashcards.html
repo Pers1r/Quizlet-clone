@@ -2,74 +2,86 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Quizlet Clone</title>
+    <title>Create module</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="static/style/create_flashcards_style.css">
+    <link rel="stylesheet" href="/static/style/create_flashcards_style.css">
 </head>
 <body>
     <header class="nav-bar">
         <a class="logo" href="/">Quizelet</a>
         <input type="search" class="search-bar" placeholder="Search..." >
         <div class="nav-btns">
-            <a class="plus-sign" href="/create_flashcard_module">+</a>
-            <a class="create" href="/create_flashcard_module">Create</a>
-            <button class="my-profile-btn btn">My profile</button>
+            {% if current_user_data %}
+                <a class="plus-sign" href="{{ url_for('create') }}">+</a>
+                <a class="create" href="{{ url_for('create') }}">Create</a>
+                <a class="my-profile-btn" >{{ current_user_data.username }}</a>
+            {% else %}
+                <a class="my-profile-btn" href="/auth">Log in</a>
+            {% endif %}
         </div>
     </header>
-    <section>
-        <form class="main" method="POST" action="/create_flashcard_module">
+
+    <section id="app">
+        <form class="main" @submit.prevent="submit" novalidate>
             <div class="title-bar">
                 <h1 class="main-title">Create a module with cards</h1>
                 <div class="main-title-actions">
-                    <button type="submit" class="btn btn-outline" name="action" value="create">Create</button>
-                    <button type="submit" class="btn btn-primary" name="action" value="create_practice">Create and practice</button>
+                    <button type="submit" class="btn btn-outline" >Create</button>
+                    <button type="submit" class="btn btn-primary" @click="createAndPractice">Create and practice</button>
                 </div>
             </div>
 
             <div class="input-main-data">
-                <input class="name-input" type="text" name="module_name" placeholder="Name...">
-                <textarea class="descr-input" type="text" name="module_descr" placeholder="Description..."></textarea>
-            </div>
-            <div class="cards">
-                <div class="card">
-                    <p class="card-id">1</p>
-                    <div class="card-line"></div>
-                    <div class="card-inputs">
-                        <div class="input-field">
-                            <input class="card-create-input" name="term_1" id="term1" type="text">
-                            <label class="card-input-label" for="term1">TERM</label>
-                        </div>
-                        <div class="input-field">
-                            <input class="card-create-input" name="definition_1" id="dfn1" type="text">
-                            <label class="card-input-label" for="dfn1">DEFINITION</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <p class="card-id">2</p>
-                    <div class="card-line"></div>
-                    <div class="card-inputs">
-                        <div class="input-field">
-                            <input class="card-create-input" name="term_2" id="term2" type="text">
-                            <label class="card-input-label" for="term2">TERM</label>
-                        </div>
-                        <div class="input-field">
-                            <input class="card-create-input" name="definition_2" id="dfn2" type="text">
-                            <label class="card-input-label" for="dfn2">DEFINITION</label>
-                        </div>
-                    </div>
-                </div>
+                <input class="name-input" type="text" v-model="name" placeholder="Name...">
+                <textarea class="descr-input" type="text" v-model="description" placeholder="Description..."></textarea>
             </div>
 
-            <button type="button" class="add-btn btn" id="add-card-btn">Add a card</button>
-            <script src="static/code/code.js"></script>
+            <div class="cards">
+                <div class="card" v-for="(c, idx) in cards" :key="idx">
+                    <p class="card-id" v-text="idx + 1"></p>
+                    <div class="card-line"></div>
+                    <div class="card-inputs">
+                        <div class="input-field">
+                            <input class="card-create-input" v-model="c.term"  :id="'term' + (idx+1)" type="text">
+                            <label class="card-input-label" :for="'term' + (idx+1)">TERM</label>
+                        </div>
+                        <div class="input-field">
+                            <input class="card-create-input" v-model="c.dfn" :id="'dfn' + (idx+1)" type="text">
+                            <label class="card-input-label" :for="'dfn' + (idx+1)">DEFINITION</label>
+                        </div>
+                        <div class="card-actions">
+                            <button type="button" class="btn small" @click="remove(idx)" v-if="cards.length > 1">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="controls">
+                <button type="button" class="add-btn btn" id="add-card-btn" @click="add">Add a card</button>
+            </div>
+
+
             <div class="main-title-actions-bottom">
                 <button type="submit" class="btn btn-primary" name="action" value="create_practice">Create and practice</button>
                 <button type="submit" class="btn btn-outline" name="action" value="create">Create</button>
             </div>
+
+            <div v-if="error" class="form-error" role="alert">{{ error }}</div>
+            <div v-if="success" class="form-success" role="status">{{ success }}</div>
         </form>
+        <script>
+            window.__USER__ = {{ current_user_data|tojson }};
+            window.__CSRF__ = "{{ csrf_token }}";
+        </script>
+
+        <!-- Vue 3 CDN -->
+        <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+        <script>
+            console.log('Vue loaded:', typeof Vue); // Should log "object"
+            console.log('createApp available:', typeof Vue.createApp); // Should log "function"
+        </script>
+        <script src="/static/code/create_module.js"></script>
     </section>
 
 </body>

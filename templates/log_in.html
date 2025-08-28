@@ -46,7 +46,7 @@
                             <button type="button" class="btn ghost" @click="createNewAccount">Create new account</button>
                         </div>
 
-                        <div v-if="errors.general" class="error" role="alert">{{ errors.general }}</div>
+                        <div v-if="errors.general" class="error" role="alert" v-text="errors.general"></div>
                     </form>
                 </div>
 
@@ -66,20 +66,26 @@
 
                         <div class="field">
                             <label for="reg-password2">Repeat Password</label>
-                            <input id="reg-password2" type="password" v-model="form.password" autocomplete="password">
+                            <input id="reg-password2" type="password" v-model="form.password2" autocomplete="password">
                         </div>
 
                         <div class="actions">
-                            <button :disabled="isCreating" type="submit" class="btn primary">{{ isCreating ? 'Creating...' : 'Create' }}</button>
+                            <button :disabled="isCreating" type="submit" class="btn primary">Create</button>
                             <button type="button" class="btn ghost" @click="switchMode(false)">Back to login</button>
                         </div>
 
-                        <div v-if="errors.general" class="error" role="alert">{{ errors.general }}</div>
+                        <div v-if="errors.general" class="error" role="alert" v-text="errors.general"></div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+        <script>
+           window.__USER__ = {{ current_user_data | tojson }};
+            window.__CSRF__ = "{{ csrf_token }}";
+        </script>
+
 
     <!-- Vue 3 CDN -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>

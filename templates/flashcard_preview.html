@@ -15,11 +15,15 @@
         <header class="nav-bar">
             <a class="logo" href="/">Quizelet</a>
             <input type="search" class="search-bar" placeholder="Search..." >
+
             <div class="nav-btns">
+            {% if current_user_data %}
                 <a class="plus-sign" href="/create_flashcard_module">+</a>
-                <a class="create" href="/create_flashcard_module">Create</a>
-                <button class="my-profile-btn btn">My profile</button>
-            </div>
+                <a class="my-profile-btn">{{ current_user_data.username }}</a>
+            {% else %}
+                <a class="my-profile-btn" href="/auth">Log in</a>
+            {% endif %}
+        </div>
         </header>
 
         <main class="container">
@@ -52,7 +56,7 @@
                 </button>
             </div>
 
-            <section class="card-storage" id="card-storage" data-cards='{{ f.cards|tojson }}'>
+            <section class="card-storage" id="card-storage" data-cards='{{ f.cards}}'>
                 <!-- 3D card -->
                 <div class="card-3d-wrapper">
                     <div class="card-3d" id="card" tabindex="0" role="button" aria-pressed="false" aria-label="Flashcard">

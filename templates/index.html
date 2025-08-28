@@ -13,9 +13,13 @@
         <a class="logo" href="/">Quizelet</a>
         <input type="search" class="search-bar" placeholder="Search..." >
         <div class="nav-btns">
-            <a class="plus-sign" href="/create_flashcard_module">+</a>
-            <a class="create" href="/create_flashcard_module">Create</a>
-            <button class="my-profile-btn">My profile</button>
+            {% if current_user_data %}
+                <a class="plus-sign" href="{{ url_for('create') }}">+</a>
+                <a class="create" href="{{ url_for('create') }}">Create</a>
+                <a class="my-profile-btn">{{ current_user_data.username }}</a>
+            {% else %}
+                <a class="my-profile-btn" href="/auth">Log in</a>
+            {% endif %}
         </div>
     </header>
     <section class="welcome-page">
@@ -65,7 +69,7 @@
         <h2 class="flashcards-preview-header">Popular flashcards sets</h2>
         <div class="flashcards-preview-wrapper">
             {# batch the list into rows of 3; fill empty slots with None so layout stays even #}
-        {% for row in flashcards|batch(3, fill_with=None) %}
+        {% for row in modules|batch(3, fill_with=None) %}
             <div class="flashcards-row">
                 {% for f in row %}
                     {% if f %}
@@ -74,7 +78,7 @@
                                 <div class="flashcard-title">{{ f.name }}</div>
                                 <div class="flashcard-badge">{{ f.cards|length }} cards</div>
                             </div>
-                            <div class="flashcard-owner">{{ f.description }}</div>
+                            <div class="flashcard-owner">{{ f.user.username }}</div>
                         </a>
                     {% else %}
                         {# empty placeholder to keep spacing consistent #}
